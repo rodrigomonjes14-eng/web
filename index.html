@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="google42f64d3f87df4e75" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impacto Digital | Desarrollo Web & Marketing</title>
     <style>
@@ -464,29 +463,12 @@
         }
         .componente-web h3 { color: var(--accent-cyan); margin-bottom: 10px; }
 
-        /* --- NOTIFICACIONES CLARAS --- */
-        .mensaje-estado { 
-            margin-top: 15px; 
-            padding: 12px; 
-            border-radius: 6px; 
-            text-align: center; 
-            display: none; 
-            font-weight: 600;
-        }
-        .mensaje-estado.estado-exito { 
-            display: block;
-            background: rgba(40, 167, 69, 0.2); 
-            border: 1px solid #28a745; 
-            color: #2da949; 
-        }
-        .mensaje-estado.estado-error { 
-            display: block;
-            background: rgba(220, 53, 69, 0.2); 
-            border: 1px solid #dc3545; 
-            color: #ea4335; 
-        }
+        /* --- NOTIFICACIONES --- */
+        .mensaje-estado { margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; display: none; font-weight: 600;}
+        .estado-exito { background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745; color: #2da949; display: block; }
+        .estado-error { background: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545; color: #ea4335; display: block; }
 
-        /* --- FOOTER --- */
+        /* --- FOOTER REGULADO A 14PX --- */
         .footer-main {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px 20px;
@@ -546,7 +528,7 @@
                     Expertos en Crecimiento Digital
                 </h1>
                 <p style="font-size: 1.25rem; color: var(--text-muted);">
-                   En Impacto Digital nos dedicamos apasionadamente al desarrollo de software a medida y a la creación de estrategias de marketing digital de alto impacto. Fusionamos código avanzado con campañas inteligentes para transformar la presencia online de tu negocio y escalar tus ventas.
+                   En Impacto Digital nos dedicamos apasionadamente al desarrollo de software a medida y a la creacion de estrategias de marketing digital de alto impacto. Fusionamos código avanzado con campañas inteligentes para transformar la presencia online de tu negocio y escalar tus ventas.
                 </p>
                 <a href="#portfolio" class="boton-portafolio">Ver Trabajos Terminados</a>
             </div>
@@ -555,17 +537,21 @@
                 <h2>Solicitar Presupuesto</h2>
                 <p style="color: #d1d1d1; margin-bottom: 25px;">Déjanos tus datos y nos comunicaremos contigo a la brevedad.</p>
                 <form id="miFormulario">
+                    <!-- Configuración adicional para el envío por AJAX con FormSubmit -->
+                    <input type="hidden" name="_subject" value="Nueva Solicitud de Presupuesto - Impacto Digital">
+                    <input type="hidden" name="_captcha" value="false">
+
                     <div class="grupo-campo">
                         <label for="nombre">Nombre Completo</label>
-                        <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
                     </div>
                     <div class="grupo-campo">
                         <label for="contacto">Teléfono o Correo</label>
-                        <input type="text" id="contacto" name="Contacto" placeholder="Ej. juan@email.com" required>
+                        <input type="text" id="contacto" name="contacto" placeholder="Ej. juan@email.com" required>
                     </div>
                     <div class="grupo-campo">
                         <label for="mensaje">¿Qué proyecto tienes en mente?</label>
-                        <textarea id="mensaje" name="Mensaje" rows="4" placeholder="Cuéntanos sobre tu negocio..."></textarea>
+                        <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu negocio..."></textarea>
                     </div>
                     <button type="submit" class="boton-enviar" id="btnEnviar">Enviar Solicitud</button>
                     <div id="notificacion" class="mensaje-estado"></div>
@@ -573,7 +559,7 @@
 
                 <div class="contacto-mail-box">
                     <p>O si lo prefieres, escríbenos directamente a:</p>
-                    <a href="mailto:impactodigital493@gmail.com" class="enlace-mail">impactodigital493@gmail.com</a>
+                    <a href="mailto:impacodigital493@gmail.com" class="enlace-mail">impacodigital493@gmail.com</a>
                 </div>
             </section>
         </div>
@@ -612,7 +598,7 @@
             <div class="tarjeta-paso">
                 <div class="numero-paso">03</div>
                 <h3>Desarrollo Activo</h3>
-                <p style="color: #b3b3b3;">Construimos tu solución con revisiones periódicas cada dos semanas, garantizando que el producto final se adapte a tus expectativas exactas.</p>
+                <p style="color: #b3b3b3;">Construimos tu solución con revisiones periódicas bincenales, garantizando que el product final se adapte a tus expectativas exactas.</p>
             </div>
             <div class="tarjeta-paso">
                 <div class="numero-paso">04</div>
@@ -732,38 +718,30 @@
 
             const datosFormulario = new FormData(this);
             
-            fetch('https://formsubmit.co/ajax/impactodigital493@gmail.com', { 
+            // CORRECCIÓN: Se actualizó a impacodigital493@gmail.com conforme a tu solicitud.
+            fetch('https://formsubmit.co/ajax/impacodigital493@gmail.com', { 
                 method: 'POST',
                 body: datosFormulario,
                 headers: { 'Accept': 'application/json' }
             })
             .then(response => {
-                if (!response.ok) throw new Error('Error en la red');
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
                 return response.json();
             })
             .then(data => {
                 btn.innerText = "Enviar Solicitud";
                 btn.disabled = false;
-                
                 notificacion.className = "mensaje-estado estado-exito";
                 notificacion.innerText = "¡Solicitud enviada con éxito!";
                 this.reset();
-                
-                setTimeout(() => {
-                    notificacion.className = "mensaje-estado";
-                    notificacion.innerText = "";
-                }, 5000);
             })
             .catch(error => {
                 btn.innerText = "Enviar Solicitud";
                 btn.disabled = false;
                 notificacion.className = "mensaje-estado estado-error";
                 notificacion.innerText = "Ocurrió un error. Inténtalo de nuevo.";
-                
-                setTimeout(() => {
-                    notificacion.className = "mensaje-estado";
-                    notificacion.innerText = "";
-                }, 5000);
             });
         });
     </script>
