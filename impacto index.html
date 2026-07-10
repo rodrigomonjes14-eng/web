@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto Digital | Desarrollo Web & Marketing</title>
+    <style>
+        /* --- RESETEO GENERAL Y VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        :root {
+            --bg-original: linear-gradient(135deg, #000000 0%, #3a0066 45%, #008080 100%);
+            --accent-cyan: #00f2fe;
+            --accent-turquoise: #00ced1;
+            --accent-purple: #4b0082;
+            --text-main: #ffffff;
+            --text-muted: #e0e0e0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --whatsapp-color: #25D366;
+        }
+
+        body {
+            background: var(--bg-original);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- MENÚ DE NAVEGACIÓN FIJO --- */
+        .header-main {
+            background-color: rgba(0, 0, 0, 0.7); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 5%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .logo {
+            height: 45px; 
+            width: auto;
+            object-fit: contain;
+        }
+
+        .titulo-marca {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .menu-navegacion {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .menu-navegacion a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .menu-navegacion a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .menu-navegacion a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .menu-navegacion a:hover::after {
+            width: 100%;
+        }
+
+        /* --- BOTONES --- */
+        .boton-portafolio, .boton-visitar {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 28px;
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+            text-align: center;
+        }
+
+        .boton-portafolio:hover, .boton-visitar:hover {
+            background: var(--accent-cyan);
+            color: #000000;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .boton-visitar {
+            margin-top: auto;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- ESFERA FLOTANTE DE WHATSAPP --- */
+        .wsp-flotante {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-color);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .wsp-flotante:hover {
+            transform: scale(1.1) translateY(-5px);
+            background-color: #20ba5a;
+            box-shadow: 0px 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .wsp-flotante svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* --- ESTRUCTURA DE LAS SECCIONES --- */
+        .seccion-pagina {
+            padding: 120px 5% 60px 5%; 
+            max-width: 1300px;
+            margin: 0 auto;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .titulo-seccion {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .grid-dos-columnas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .imagen-quienes-somos {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- FORMULARIO INTEGRADO --- */
+        .contenedor-presupuesto {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            justify-self: end;
+        }
+
+        .contenedor-presupuesto h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--accent-cyan);
+        }
+
+        .grupo-campo { margin-bottom: 20px; }
+        .grupo-campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .grupo-campo input, .grupo-campo textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .grupo-campo input:focus, .grupo-campo textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+        }
+
+        .boton-enviar {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-turquoise)); 
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+        }
+
+        .boton-enviar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 206, 209, 0.4);
+        }
+
+        /* --- SECCIÓN CONTACTO POR MAIL DIRECTO --- */
+        .contacto-mail-box {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        .contacto-mail-box p {
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            margin-bottom: 8px;
+        }
+        .enlace-mail {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+        }
+        .enlace-mail:hover {
+            color: var(--accent-turquoise);
+            text-decoration: underline;
+        }
+
+        /* --- MARKETING DIGITAL --- */
+        .grid-marketing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tarjeta-marketing {
+            background: rgba(0, 242, 254, 0.03);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            padding: 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tarjeta-marketing:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.06);
+            transform: translateY(-3px);
+        }
+
+        .tarjeta-marketing h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        /* --- PORTAFOLIO --- */
+        .contenedor-portfolio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .tarjeta-proyecto {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .tarjeta-proyecto:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-turquoise);
+            box-shadow: 0 10px 25px rgba(0, 206, 209, 0.15);
+        }
+
+        .imagen-proyecto {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .contenido-proyecto {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .tag-proyecto {
+            align-self: flex-start;
+            background: rgba(75, 0, 130, 0.4);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .contenido-proyecto h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .contenido-proyecto p {
+            color: #b3b3b3;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* --- SECCIÓN NUESTRO PROCESO --- */
+        .contenedor-pasos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .tarjeta-paso {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-paso:hover { transform: translateY(-5px); }
+        .numero-paso {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-turquoise);
+            margin-bottom: 10px;
+        }
+        .tarjeta-paso h3 { margin-bottom: 12px; font-size: 1.3rem; }
+
+        /* --- SECCIÓN TECNOLOGÍAS & IA --- */
+        .tech-container { text-align: center; }
+        .ai-box {
+            background: rgba(0, 206, 209, 0.1);
+            border: 1px solid var(--accent-turquoise);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+        }
+        .grid-techs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .badge-tech {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* --- SECCIÓN ANATOMÍA WEB --- */
+        .grid-arquitectura {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .componente-web {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent-purple);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+        }
+        .componente-web h3 { color: var(--accent-cyan); margin-bottom: 10px; }
+
+        /* --- NOTIFICACIONES --- */
+        .mensaje-estado { margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; display: none; font-weight: 600;}
+        .estado-exito { background: rgba(40, 167, 69, 0.2); border: 1px solid #28a745; color: #2da949; display: block; }
+        .estado-error { background: rgba(220, 53, 69, 0.2); border: 1px solid #dc3545; color: #ea4335; display: block; }
+
+        /* --- FOOTER REGULADO A 14PX --- */
+        .footer-main {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .footer-main p { font-size: 14px; color: #d1d1d1; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .grid-dos-columnas { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .contenedor-presupuesto { margin: 0 auto; }
+            .seccion-pagina { padding-top: 160px; }
+        }
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+            .menu-navegacion { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .titulo-seccion { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ESFERA FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/5491122965181?text=Hola,%20vengo%20desde%20la%20web%20y%20quiero%20solicitar%20un%20presupuesto." class="wsp-flotante" target="_blank" rel="noopener noreferrer" title="Chatea con nuestro Bot">
+        <svg viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
+
+    <!-- Header Fijo -->
+    <header class="header-main">
+        <div class="nav-container">
+            <a href="#inicio" class="brand">
+                <img src="logo impacto digital.png.png" alt="Logo Impacto Digital" class="logo">
+                <span class="titulo-marca">Impacto Digital</span>
+            </a>
+            <nav>
+                <ul class="menu-navegacion">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#proceso">Nuestro Proceso</a></li>
+                    <li><a href="#tecnologias">Tecnologías</a></li>
+                    <li><a href="#arquitectura">Anatomía Web</a></li>
+                    <li><a href="#marketing">Marketing</a></li> 
+                    <li><a href="#portfolio">Portafolio</a></li> 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- INICIO -->
+    <main class="seccion-pagina" id="inicio">
+        <div class="grid-dos-columnas">
+            <div style="text-align: left;">
+                <h1 style="font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    Expertos en Crecimiento Digital
+                </h1>
+                <p style="font-size: 1.25rem; color: var(--text-muted);">
+                   En Impacto Digital nos dedicamos apasionadamente al desarrollo de software a medida y a la creacion de estrategias de marketing digital de alto impacto. Fusionamos código avanzado con campañas inteligentes para transformar la presencia online de tu negocio y escalar tus ventas.
+                </p>
+                <a href="#portfolio" class="boton-portafolio">Ver Trabajos Terminados</a>
+            </div>
+
+            <section class="contenedor-presupuesto">
+                <h2>Solicitar Presupuesto</h2>
+                <p style="color: #d1d1d1; margin-bottom: 25px;">Déjanos tus datos y nos comunicaremos contigo a la brevedad.</p>
+                <form id="miFormulario">
+                    <div class="grupo-campo">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required>
+                    </div>
+                    <div class="grupo-campo">
+                        <label for="contacto">Teléfono o Correo</label>
+                        <input type="text" id="contacto" name="Contacto" placeholder="Ej. juan@email.com" required>
+                    </div>
+                    <div class="grupo-campo">
+                        <label for="mensaje">¿Qué proyecto tienes en mente?</label>
+                        <textarea id="mensaje" name="Mensaje" rows="4" placeholder="Cuéntanos sobre tu negocio..."></textarea>
+                    </div>
+                    <button type="submit" class="boton-enviar" id="btnEnviar">Enviar Solicitud</button>
+                    <div id="notificacion" class="mensaje-estado"></div>
+                </form>
+
+                <div class="contacto-mail-box">
+                    <p>O si lo prefieres, escríbenos directamente a:</p>
+                    <a href="mailto:impactodigital493@gmail.com" class="enlace-mail">impactodigital493@gmail.com</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- QUIÉNES SOMOS -->
+    <section class="seccion-pagina" id="quienes-somos">
+        <h2 class="titulo-seccion">Quiénes Somos</h2>
+        <div class="grid-dos-columnas">
+            <img src="imagen para la pagina.png" alt="Equipo de trabajo Impacto Digital" class="imagen-quienes-somos">
+            <div style="text-align: left;">
+                <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--text-muted);">
+                    Somos un equipo multidisciplinario enfocado en **resolver ineficiencias operativas y potenciar canales de venta**. Entendemos que la tecnología debe trabajar para ti, no darte más problemas.
+                </p>
+                <p style="font-size: 1.1rem; color: #b3b3b3;">
+                    Facilitamos tus tareas diarias mediante el desarrollo de software intuitivo y robusto, eliminando procesos manuales repetitivos. En el área comercial, diseñamos embudos de marketing digital de alta conversión que interceptan a tu cliente ideal, asegurando que cada inversión se traduzca en métricas de crecimiento reales y medibles.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUESTRO PROCESO -->
+    <section class="seccion-pagina" id="proceso">
+        <h2 class="titulo-seccion">Proceso de Acompañamiento</h2>
+        <div class="contenedor-pasos">
+            <div class="tarjeta-paso">
+                <div class="numero-paso">01</div>
+                <h3>Diagnóstico Inicial</h3>
+                <p style="color: #b3b3b3;">Analizamos tu modelo de negocio, competidores e infraestructura actual sin costo para identificar cuellos de botella.</p>
+            </div>
+            <div class="tarjeta-paso">
+                <div class="numero-paso">02</div>
+                <h3>Presupuesto y Plan</h3>
+                <p style="color: #b3b3b3;">Presentamos una propuesta comercial transparente y desglosada, con alcances tecnológicos definidos y tiempos de entrega reales.</p>
+            </div>
+            <div class="tarjeta-paso">
+                <div class="numero-paso">03</div>
+                <h3>Desarrollo Activo</h3>
+                <p style="color: #b3b3b3;">Construimos tu solución con revisiones periódicas bincenales, garantizando que el product final se adapte a tus expectativas exactas.</p>
+            </div>
+            <div class="tarjeta-paso">
+                <div class="numero-paso">04</div>
+                <h3>Despliegue y Soporte</h3>
+                <p style="color: #b3b3b3;">Lanzamos la plataforma a producción y te acompañamos con soporte post-lanzamiento técnico y optimización de pauta publicitaria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECNOLOGÍAS & IA -->
+    <section class="seccion-pagina" id="tecnologias">
+        <h2 class="titulo-seccion">Stack Tecnológico & Automatización</h2>
+        <div class="tech-container">
+            <div class="ai-box">
+                <strong>💡 Integración de Inteligencia Artificial (IA):</strong> Diseñamos ecosistemas hiper-eficientes utilizando <strong>n8n</strong> para conectar flujos de trabajo con modelos avanzados de IA y transferencias automáticas mediante <strong>API Keys</strong>. Automatizamos tu atención al cliente, facturación y reportes de marketing para ahorrarte cientos de horas operativas.
+            </div>
+            <div class="grid-techs">
+                <span class="badge-tech" style="color: #e34c26;">HTML5</span>
+                <span class="badge-tech" style="color: #264de4;">CSS3</span>
+                <span class="badge-tech" style="color: #f7df1e;">JavaScript</span>
+                <span class="badge-tech" style="color: #0073c4;">Java</span>
+                <span class="badge-tech" style="color: #61dafb;">React</span>
+                <span class="badge-tech" style="color: #339933;">Node.js</span>
+                <span class="badge-tech" style="color: #21759b;">WordPress</span>
+                <span class="badge-tech" style="color: #f11111;">n8n</span>
+                <span class="badge-tech" style="color: #ffffff; background: #24292e;">GitHub</span>
+                <span class="badge-tech" style="color: #00f2fe;">API Key</span>
+                <span class="badge-tech" style="color: #ffffff; background: #000;">Vercel</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANATOMÍA WEB -->
+    <section class="seccion-pagina" id="arquitectura">
+        <h2 class="titulo-seccion">¿Cómo se compone una Web en la Red?</h2>
+        <div class="grid-arquitectura">
+            <div class="componente-web">
+                <h3>1. El Dominio (.com / .net)</h3>
+                <p style="color: #b3b3b3;">Es la dirección e identidad digital única que tus clientes escriben para encontrarte. Actúa como el letrero exterior de tu negocio físico.</p>
+            </div>
+            <div class="componente-web">
+                <h3>2. Servidor / Hosting</h3>
+                <p style="color: #b3b3b3;">El espacio en la nube (computadoras de alto rendimiento como Vercel o AWS) donde se almacenan de forma segura los archivos, imágenes y bases de datos.</p>
+            </div>
+            <div class="componente-web">
+                <h3>3. Frontend & Backend</h3>
+                <p style="color: #b3b3b3;">El Frontend es la interfaz visual con la que interactúa el cliente. El Backend procesa las reglas de negocio, compras, pasarelas de pago y seguridad.</p>
+            </div>
+            <div class="componente-web">
+                <h3>4. Indexación & SEO</h3>
+                <p style="color: #b3b3b3;">La configuración técnica que permite a los motores de búsqueda (Google) leer tu tienda online para listarla públicamente ante millones de intenciones de búsqueda.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKETING DIGITAL -->
+    <section class="seccion-pagina" id="marketing">
+        <h2 class="titulo-seccion">El Impulso del Marketing Digital</h2>
+        <p style="font-size: 1.2rem; text-align: center; max-width: 800px; margin: 0 auto 50px auto; color: var(--text-muted);">
+            Tener la mejor página web o tienda online del mundo no sirve de nada si nadie sabe que existe. El **Marketing Digital es el combustible** que posiciona, da visibilidad e impulsa de forma acelerada la rentabilidad de una marca en el ecosistema actual.
+        </p>
+        
+        <div class="grid-marketing">
+            <div class="tarjeta-marketing">
+                <h3>🚀 Visibilidad y Alcance</h3>
+                <p style="color: #b3b3b3;">Permite romper las barreras geográficas. Tu marca pasa de estar visible solo para un sector local a presentarse directamente ante miles de clientes potenciales calificados las 24 horas del día.</p>
+            </div>
+            <div class="tarjeta-marketing">
+                <h3>🎯 Segmentación Quirúrgica</h3>
+                <p style="color: #b3b3b3;">A diferencia de la publicidad tradicional, aquí no gastas dinero al azar. Apuntamos únicamente a personas con la edad, intereses, ubicación y hábitos de compra ideales para tu producto o servicio.</p>
+            </div>
+            <div class="tarjeta-marketing">
+                <h3>📈 Retorno de Inversión (ROI) Medible</h3>
+                <p style="color: #b3b3b3;">En el entorno digital todo se puede medir en tiempo real. Sabemos con exactitud cuántas personas vieron un anuncio, cuántas hicieron clic y cuántas compraron, permitiendo optimizar el presupuesto minuto a minuto.</p>
+            </div>
+            <div class="tarjeta-marketing">
+                <h3>🏆 Autoridad y Confianza</h3>
+                <p style="color: #b3b3b3;">Una estrategia sólida de contenidos y pauta publicitaria construye prestigio. Al resolver dudas de tus usuarios antes de la compra, tu marca se posiciona como el líder indiscutido de su nicho.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: PORTAFOLIO -->
+    <section class="seccion-pagina" id="portfolio">
+        <h2 class="titulo-seccion">Casos de Éxito y Trabajos Terminados</h2>
+        <p style="font-size: 1.2rem; text-align: center; max-width: 800px; margin: 0 auto 50px auto; color: var(--text-muted);">
+            Explora las plataformas reales que hemos desarrollado para impulsar la automatización y ventas de nuestros clientes.
+        </p>
+
+        <div class="contenedor-portfolio">
+            <article class="tarjeta-proyecto">
+                <img src="pagina pupiartagendas.png" alt="Miniatura del proyecto Pupiart Agendas" class="imagen-proyecto">
+                <div class="contenido-proyecto">
+                    <span class="tag-proyecto">Tienda online de Agendas Docentes</span>
+                    <h3>Pupiart Agendas</h3>
+                    <p>Diseño y optimización de una plataforma interactiva dedicada a la gestión, personalización y venta directa de agendas de diseño exclusivo.</p>
+                    <a href="https://pupiartagendas.vercel.app/" target="_blank" class="boton-visitar">Visitar Sitio Web</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-main">
+        <p>© 2026 Impacto Digital. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT DE ENVÍO FORMULARIO -->
+    <script>
+        document.getElementById('miFormulario').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            const notificacion = document.getElementById('notificacion');
+            
+            btn.innerText = "Enviando...";
+            btn.disabled = true;
+
+            const datosFormulario = new FormData(this);
+            
+            fetch('https://formsubmit.co/ajax/impactodigital493@gmail.com', { 
+                method: 'POST',
+                body: datosFormulario,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerText = "Enviar Solicitud";
+                btn.disabled = false;
+                notificacion.className = "mensaje-estado estado-exito";
+                notificacion.innerText = "¡Solicitud enviada con éxito!";
+                this.reset();
+            })
+            .catch(error => {
+                btn.innerText = "Enviar Solicitud";
+                btn.disabled = false;
+                notificacion.className = "mensaje-estado estado-error";
+                notificacion.innerText = "Ocurrió un error. Inténtalo de nuevo.";
+            });
+        });
+    </script>
+</body>
+</html>
