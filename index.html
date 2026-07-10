@@ -537,10 +537,6 @@
                 <h2>Solicitar Presupuesto</h2>
                 <p style="color: #d1d1d1; margin-bottom: 25px;">Déjanos tus datos y nos comunicaremos contigo a la brevedad.</p>
                 <form id="miFormulario">
-                    <!-- Configuración adicional para el envío por AJAX con FormSubmit -->
-                    <input type="hidden" name="_subject" value="Nueva Solicitud de Presupuesto - Impacto Digital">
-                    <input type="hidden" name="_captcha" value="false">
-
                     <div class="grupo-campo">
                         <label for="nombre">Nombre Completo</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
@@ -716,13 +712,22 @@
             btn.innerText = "Enviando...";
             btn.disabled = true;
 
-            const datosFormulario = new FormData(this);
+            // Enviamos los datos estructurados en JSON limpio para evitar fallos de CORS o FormData
+            const datosFormulario = {
+                nombre: document.getElementById('nombre').value,
+                contacto: document.getElementById('contacto').value,
+                mensaje: document.getElementById('mensaje').value,
+                _subject: "Nueva Solicitud de Presupuesto - Impacto Digital",
+                _captcha: "false"
+            };
             
-            // CORRECCIÓN: Se actualizó a impacodigital493@gmail.com conforme a tu solicitud.
             fetch('https://formsubmit.co/ajax/impacodigital493@gmail.com', { 
                 method: 'POST',
-                body: datosFormulario,
-                headers: { 'Accept': 'application/json' }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' 
+                },
+                body: JSON.stringify(datosFormulario)
             })
             .then(response => {
                 if (!response.ok) {
@@ -745,5 +750,7 @@
             });
         });
     </script>
+</body>
+</html>
 </body>
 </html>
